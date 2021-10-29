@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import classes from '../../../../styles/layout/navigation.module.css'
 import Burger from './Burger'
 import DesktopNav from './DesktopNav'
@@ -8,11 +8,13 @@ import MobileNav from './MobileNav'
 const Nav = () => {
 	const [expanded, setExpanded] = useState(false)
 
-	if (expanded) {
-		document.body.style.overflowY = 'hidden'
-	} else {
-		document.body.style.overflowY = 'scroll'
-	}
+	useEffect(() => {
+		if (expanded) {
+			document.body.style.overflowY = 'hidden'
+		} else {
+			document.body.style.overflowY = 'scroll'
+		}
+	}, [expanded])
 
 	return (
 		<nav className={classes.Nav}>

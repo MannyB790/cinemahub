@@ -1,11 +1,13 @@
 .MoviesWrapper {
 	text-align: center;
 	width: 100%;
-	margin: 3rem 0;
 }
 
 .MoviesWrapper h2 {
+	background-color: var(--primary);
 	color: var(--text-primary);
+	margin: 1rem 0;
+	padding: 0.5rem 0;
 }
 
 .Movies {
