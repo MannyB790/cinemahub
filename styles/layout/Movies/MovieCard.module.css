@@ -1,0 +1,25 @@
+.MovieCard {
+	max-width: 200px;
+	position: relative;
+}
+
+.MovieCard p {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 1;
+	background-color: var(--primary);
+	color: var(--text-primary);
+	margin: 3px;
+	padding: 3px;
+}
+
+.MovieCard a {
+	color: var(--text-primary);
+	font-size: 1.5rem;
+	transition: color 0.3s;
+}
+
+.MovieCard a:hover {
+	color: var(--text-secondary);
+}

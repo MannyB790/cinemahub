@@ -1,0 +1,17 @@
+.MoviesWrapper {
+	text-align: center;
+	width: 100%;
+	margin: 3rem 0;
+}
+
+.MoviesWrapper h2 {
+	color: var(--text-primary);
+}
+
+.Movies {
+	width: 100%;
+	display: grid;
+	gap: 10px;
+	justify-content: space-evenly;
+	grid-template-columns: repeat(auto-fill, 200px);
+}

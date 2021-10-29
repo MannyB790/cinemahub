@@ -6,6 +6,20 @@
 	--text-secondary: #f09440;
 }
 
+::-webkit-scrollbar {
+	width: 0.5rem;
+	background-color: var(--primary);
+}
+
+::-webkit-scrollbar-thumb {
+	background-color: var(--text-secondary);
+	border-radius: 10px;
+}
+
+body {
+	background-color: var(--secondary);
+}
+
 * {
 	box-sizing: border-box;
 	text-decoration: none;

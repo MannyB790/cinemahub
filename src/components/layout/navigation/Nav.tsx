@@ -8,6 +8,12 @@ import MobileNav from './MobileNav'
 const Nav = () => {
 	const [expanded, setExpanded] = useState(false)
 
+	if (expanded) {
+		document.body.style.overflowY = 'hidden'
+	} else {
+		document.body.style.overflowY = 'scroll'
+	}
+
 	return (
 		<nav className={classes.Nav}>
 			<Logo />
