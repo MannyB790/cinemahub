@@ -1,0 +1,123 @@
+.Nav {
+	background-color: var(--primary);
+	height: 75px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.Logo {
+	color: var(--text-primary);
+	font-size: 2rem;
+	margin-left: 10px;
+}
+
+.Logo:hover {
+	color: var(--text-secondary);
+	transition: color 0.3s;
+}
+
+.Burger {
+	height: 30px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	cursor: pointer;
+	margin-right: 10px;
+}
+
+.Burger div {
+	height: 5px;
+	width: 50px;
+	border-radius: 3px;
+	background-color: var(--text-primary);
+	transition: all 0.5s;
+}
+
+.Expanded {
+	position: relative;
+	display: flex;
+	justify-content: center;
+}
+
+.Expanded div:nth-child(2) {
+	transform: translateX(-100%);
+	opacity: 0;
+}
+
+.Expanded div:nth-child(1) {
+	position: absolute;
+	transform: rotate(45deg);
+}
+
+.Expanded div:nth-child(3) {
+	position: absolute;
+	transform: rotate(-45deg);
+}
+
+.MobileNav {
+	height: 100vh;
+	width: 100%;
+	background-color: var(--primary);
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	z-index: -1;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	transition: all 0.3s;
+}
+
+.MobileNav ul {
+	list-style: none;
+	width: 100%;
+	text-align: center;
+}
+
+.MobileNav li {
+	background-color: var(--secondary);
+	margin: 10px 0;
+}
+
+.MobileNav a {
+	color: var(--text-primary);
+	font-size: 28px;
+}
+
+.Hidden {
+	display: none;
+}
+
+.DesktopNav {
+	display: none;
+	list-style: none;
+}
+
+.DesktopNav li {
+	margin: 0 1rem;
+}
+
+.DesktopNav a {
+	color: var(--text-primary);
+	font-size: 36px;
+	transition: color 0.3s;
+}
+
+.DesktopNav a:hover {
+	color: var(--text-secondary);
+}
+
+@media screen and (min-width: 768px) {
+	.Burger {
+		display: none;
+	}
+
+	.MobileNav {
+		display: none;
+	}
+
+	.DesktopNav {
+		display: flex;
+	}
+}
