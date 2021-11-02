@@ -6,7 +6,7 @@ import Nav from '../src/components/layout/navigation/Nav'
 const Home = () => {
 	return (
 		<Fragment>
-			<Nav />
+			<Nav search={true} />
 			<MPTMovies />
 			<LUMovies />
 		</Fragment>

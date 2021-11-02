@@ -1,15 +1,19 @@
 import { initializeApp } from 'firebase/app'
-import { getAnalytics } from 'firebase/analytics'
+import { getAuth } from 'firebase/auth'
+import { getFirestore } from 'firebase/firestore'
+import { getStorage } from 'firebase/storage'
 
 const firebaseConfig = {
-	apiKey: process.env.API_KEY,
-	authDomain: process.env.AUTH_DOMAIN,
-	projectId: process.env.PROJECT_ID,
-	storageBucket: process.env.STORAGE_BUCKET,
-	messagingSenderId: process.env.MESSAGING_SENDER_ID,
-	appId: process.env.APP_ID,
-	measurementId: process.env.MEASUREMENT_ID,
+	apiKey: process.env.NEXT_PUBLIC_apiKey,
+	authDomain: process.env.NEXT_PUBLIC_authDomain,
+	projectId: process.env.NEXT_PUBLIC_projectId,
+	storageBucket: process.env.NEXT_PUBLIC_storageBucket,
+	messagingSenderId: process.env.NEXT_PUBLIC_messagingSenderId,
+	appId: process.env.NEXT_PUBLIC_appId,
+	measurementId: process.env.NEXT_PUBLIC_measurementId,
 }
 
 const app = initializeApp(firebaseConfig)
-const analytics = getAnalytics(app)
+export const auth = getAuth()
+export const db = getFirestore()
+export const storage = getStorage()

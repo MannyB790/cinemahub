@@ -1,0 +1,14 @@
+.CustomSelect {
+	display: flex;
+	color: var(--text-primary);
+	font-size: 1.2rem;
+}
+
+.CustomSelect select {
+	font-size: 1.2rem;
+	color: var(--text-primary);
+	background-color: var(--primary);
+	border: none;
+	padding-right: 1rem;
+	margin-left: 0.5rem;
+}

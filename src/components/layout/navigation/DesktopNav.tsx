@@ -14,6 +14,9 @@ const DesktopNav = () => {
 			<li>
 				<Link href='/shows'>Shows</Link>
 			</li>
+			<li>
+				<Link href='/login'>Login</Link>
+			</li>
 		</ul>
 	)
 }

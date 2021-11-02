@@ -111,6 +111,32 @@
 	color: var(--text-secondary);
 }
 
+.SearchBar {
+	margin: 3rem auto;
+	min-width: auto;
+	max-width: 30rem;
+	height: 3rem;
+}
+
+.SearchBar input {
+	width: 100%;
+	height: 100%;
+	font-size: 1.8rem;
+	border: none;
+	outline: none;
+	padding: 0.5rem;
+}
+
+.Options {
+	max-width: 100%;
+	display: flex;
+	justify-content: space-between;
+}
+
+.Desktop {
+	display: none;
+}
+
 @media screen and (min-width: 768px) {
 	.Burger {
 		display: none;
@@ -122,5 +148,13 @@
 
 	.DesktopNav {
 		display: flex;
+	}
+
+	.Desktop {
+		display: block;
+	}
+
+	.Mobile {
+		display: none;
 	}
 }
