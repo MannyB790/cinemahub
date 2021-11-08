@@ -6,20 +6,18 @@ const LUShows = () => {
 		<div className={classes.MoviesWrapper}>
 			<h2>Latest Updates</h2>
 			<div className={classes.Movies}>
-				<MovieCard />
-				<MovieCard />
-				<MovieCard />
-				<MovieCard />
-				<MovieCard />
-				<MovieCard />
-				<MovieCard />
-				<MovieCard />
-				<MovieCard />
-				<MovieCard />
-				<MovieCard />
-				<MovieCard />
-				<MovieCard />
-				<MovieCard />
+				<MovieCard href='#' />
+				<MovieCard href='#' />
+				<MovieCard href='#' />
+				<MovieCard href='#' />
+				<MovieCard href='#' />
+				<MovieCard href='#' />
+				<MovieCard href='#' />
+				<MovieCard href='#' />
+				<MovieCard href='#' />
+				<MovieCard href='#' />
+				<MovieCard href='#' />
+				<MovieCard href='#' />
 			</div>
 		</div>
 	)

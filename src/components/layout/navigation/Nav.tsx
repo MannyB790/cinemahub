@@ -4,16 +4,15 @@ import Burger from './Burger'
 import DesktopNav from './DesktopNav'
 import Logo from './Logo'
 import MobileNav from './MobileNav'
-import SearchBar from './SearchBar'
 
-const Nav: React.FC<{ search: boolean }> = props => {
+const Nav = () => {
 	const [expanded, setExpanded] = useState(false)
 
 	useEffect(() => {
 		if (expanded) {
 			document.body.style.overflowY = 'hidden'
 		} else {
-			document.body.style.overflowY = 'scroll'
+			document.body.style.overflowY = 'auto'
 		}
 	}, [expanded])
 
@@ -25,7 +24,6 @@ const Nav: React.FC<{ search: boolean }> = props => {
 				<MobileNav expanded={expanded} />
 				<Burger expanded={expanded} setExpanded={setExpanded} />
 			</nav>
-			{props.search && <SearchBar />}
 		</Fragment>
 	)
 }

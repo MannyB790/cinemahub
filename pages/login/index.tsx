@@ -1,13 +1,23 @@
-import { Fragment } from 'react'
-import Login from '../../src/components/layout/Auth/Login'
-import Nav from '../../src/components/layout/navigation/Nav'
+import { useRouter } from 'next/router'
+import { Fragment, useEffect } from 'react'
+import { useAuthState } from 'react-firebase-hooks/auth'
+import { auth } from '../../firebase/firebase'
+import Login from '../../src/components/layout/Auth/Signin'
 
 import classes from '../../styles/layout/Auth/Auth.module.css'
 
 const index = () => {
+	const router = useRouter()
+	const [user] = useAuthState(auth)
+
+	useEffect(() => {
+		if (user) {
+			router.push('/')
+		}
+	}, [])
+
 	return (
 		<Fragment>
-			<Nav search={false} />
 			<div className={classes.Auth}>
 				<Login />
 			</div>

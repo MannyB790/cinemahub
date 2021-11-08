@@ -1,0 +1,86 @@
+.Profile {
+	display: flex;
+	width: 100%;
+	height: calc(100vh - 75px);
+	overflow-y: auto;
+}
+
+.ProfilePage {
+	margin-top: 1rem;
+	width: 20rem;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	align-items: center;
+	color: var(--text-primary);
+}
+
+.ProfilePage input {
+	background-color: var(--primary);
+	color: var(--text-primary);
+	font-size: 1.2rem;
+	border-radius: 3px;
+	padding: 1rem 0.5rem;
+	min-width: 20rem;
+	width: 80%;
+	max-width: 35rem;
+	min-height: 3rem;
+	border: none;
+	outline: none;
+}
+
+.ProfilePage label {
+	margin: 0.5rem;
+}
+
+.removePFP {
+	background-color: var(--primary);
+	border: none;
+	border-radius: 10px;
+	outline: none;
+	color: var(--text-secondary);
+	font-size: 1rem;
+	padding: 0.5rem;
+	margin: 10px 0;
+	transition: all 0.3s;
+}
+
+.Upload,
+.Update {
+	background-color: var(--primary);
+	border: none;
+	border-radius: 10px;
+	outline: none;
+	color: var(--text-secondary);
+	font-size: 1.5rem;
+	padding: 0.5rem 2rem;
+	margin: 10px 0;
+	transition: all 0.3s;
+}
+
+.ProfilePage button:hover {
+	color: var(--primary);
+	background-color: var(--text-secondary);
+}
+
+.DisplayProfile {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.ProfileInfo {
+	display: flex;
+	flex-direction: column;
+}
+
+.DisplayProfile img {
+	cursor: pointer;
+	border-radius: 50%;
+}
+
+.ImagePrompt {
+	display: none;
+}

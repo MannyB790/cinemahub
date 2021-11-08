@@ -5,12 +5,16 @@ import classes from '../../../../styles/layout/Movies/MovieCard.module.css'
 
 import tmb from '../../../../public/images/thumbnails/thumbnail.jpg'
 
-const MovieCard = () => {
+const MovieCard: React.FC<{
+	year: number
+	href: string
+	src?: string
+}> = props => {
 	return (
 		<div className={classes.MovieCard}>
-			<p>2021</p>
-			<Image src={tmb} width='200px' height='300px' />
-			<Link href='#'>Dune</Link>
+			<p>{props.year}</p>
+			<Image src={props.src ? props.src : tmb} width='200px' height='300px' />
+			<Link href={`movies/${props.href}`}>{props.href}</Link>
 		</div>
 	)
 }

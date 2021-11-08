@@ -1,0 +1,43 @@
+.Navigation {
+	position: sticky;
+	top: 0;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	background-color: var(--primary);
+	list-style: none;
+	width: 10rem;
+	min-height: 100%;
+}
+
+.Navigation li {
+	text-align: center;
+	padding: 1rem 0;
+}
+
+.Navigation a {
+	color: var(--text-primary);
+	font-size: 1.5rem;
+	/* overflow-y: ; */
+}
+
+.Navigation button {
+	background-color: var(--primary);
+	border: none;
+	border-radius: 10px;
+	outline: none;
+	color: var(--text-secondary);
+	font-size: 1rem;
+	padding: 0.5rem 0;
+	transition: all 0.3s;
+	margin-top: auto;
+}
+
+.Navigation button:hover {
+	color: var(--primary);
+	background-color: var(--text-secondary);
+}
+
+.Active {
+	background-color: var(--secondary);
+}

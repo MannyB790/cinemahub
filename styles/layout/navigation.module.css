@@ -1,4 +1,6 @@
 .Nav {
+	position: sticky;
+	top: 0;
 	background-color: var(--primary);
 	height: 75px;
 	display: flex;
@@ -109,6 +111,11 @@
 
 .DesktopNav a:hover {
 	color: var(--text-secondary);
+}
+
+.DesktopNav img {
+	cursor: pointer;
+	border-radius: 50%;
 }
 
 .SearchBar {

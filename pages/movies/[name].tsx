@@ -1,5 +1,4 @@
 import { Fragment, useEffect, useRef, useState } from 'react'
-import Nav from '../../src/components/layout/navigation/Nav'
 
 import classes from '../../styles/layout/Movies/Movie/Movie.module.css'
 import { getDownloadURL, ref } from '@firebase/storage'
@@ -19,7 +18,6 @@ const Name = () => {
 
 	return (
 		<Fragment>
-			<Nav search={false} />
 			<div className={classes.Movie}>
 				<Player
 					src={URL}
