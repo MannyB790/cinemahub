@@ -13,7 +13,7 @@ const CP = () => {
 	// 	router.replace('/')
 	// }
 
-	if (user) {
+	if (user?.email === 'admin@test.com') {
 		return (
 			<div className={classes.Profile}>
 				<Navigation />

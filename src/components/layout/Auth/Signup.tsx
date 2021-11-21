@@ -1,9 +1,9 @@
 import { createUserWithEmailAndPassword } from '@firebase/auth'
+import { doc, setDoc } from '@firebase/firestore'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
-import { useAuthState } from 'react-firebase-hooks/auth'
-import { auth } from '../../../../firebase/firebase'
+import { auth, db } from '../../../../firebase/firebase'
 
 import classes from '../../../../styles/layout/Auth/Auth.module.css'
 

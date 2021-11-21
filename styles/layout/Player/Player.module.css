@@ -1,34 +1,45 @@
 .VideoWrapper {
-	margin: 10px 30px;
-	max-width: 800px;
+	margin: 0 2rem;
+	max-width: 50rem;
 }
 
 .VideoWrapper video {
-	margin: 10px 0;
+	margin: 1rem 0;
 	width: 100%;
+	aspect-ratio: 16/9;
 }
 
 .VideoWrapper h1 {
 	color: var(--text-primary);
 }
 
-.VideoWrapper p {
+.Description {
 	border-top: 10px solid var(--primary);
 	border-bottom: 10px solid var(--primary);
 	color: var(--text-primary);
 	padding: 30px 0;
 }
-
 .Info {
-	width: 100%;
-	display: grid;
-	grid-template-columns: 1fr 1fr;
-	gap: 30px;
+	display: flex;
+	justify-content: space-between;
 	color: var(--text-primary);
-	margin: 10px 0;
 }
 
-.Info h2:nth-child(2),
-.Info h2:nth-child(4) {
-	margin-left: auto;
+.InfoPanel {
+	list-style: none;
+	display: flex;
+	flex-direction: column;
+	font-size: 1.3rem;
+}
+
+.InfoPanel li {
+	margin: 0.5rem 0;
+}
+
+.InfoRating {
+	width: 10rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin: auto 0;
 }

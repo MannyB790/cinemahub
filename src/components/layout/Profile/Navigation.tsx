@@ -1,10 +1,13 @@
 import { signOut } from '@firebase/auth'
 import { useRouter } from 'next/router'
+import { useAuthState } from 'react-firebase-hooks/auth'
 import { auth } from '../../../../firebase/firebase'
 import classes from '../../../../styles/layout/Profile/Navigation.module.css'
 import NavLink from '../../UI/NavLink/NavLink'
 
 const Navigation = () => {
+	const [user] = useAuthState(auth)
+
 	const router = useRouter()
 
 	const singOutHandler = () => {
@@ -24,15 +27,22 @@ const Navigation = () => {
 			<NavLink href='/profile/security' class={classes.Active}>
 				Security
 			</NavLink>
-			<NavLink href='/cp' class={classes.Active}>
-				Control Panel
-			</NavLink>
-			<NavLink href='/cp/users' class={classes.Active}>
-				Users
-			</NavLink>
-			<NavLink href='/cp/requests' class={classes.Active}>
-				Requests
-			</NavLink>
+			{user?.email === 'admin@test.com' && (
+				<NavLink href='/cp' class={classes.Active}>
+					Control Panel
+				</NavLink>
+			)}
+			{user?.email === 'admin@test.com' && (
+				<NavLink href='/cp/users' class={classes.Active}>
+					Users
+				</NavLink>
+			)}
+			{user?.email === 'admin@test.com' && (
+				<NavLink href='/cp/requests' class={classes.Active}>
+					Requests
+				</NavLink>
+			)}
+
 			<button onClick={singOutHandler}>Log Out</button>
 		</ul>
 	)

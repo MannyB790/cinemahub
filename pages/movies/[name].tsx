@@ -1,37 +1,55 @@
-import { Fragment, useEffect, useRef, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 
 import classes from '../../styles/layout/Movies/Movie/Movie.module.css'
-import { getDownloadURL, ref } from '@firebase/storage'
-import { storage } from '../../firebase/firebase'
 import Player from '../../src/components/layout/Player/Player'
+import { useRouter } from 'next/router'
+import { doc, DocumentData, getDoc } from '@firebase/firestore'
+import { db, storage } from '../../firebase/firebase'
+import { getDownloadURL, ref } from '@firebase/storage'
 
 const Name = () => {
+	const router = useRouter()
+
+	const [movieName, setMovieName] = useState('')
+	const [data, setData] = useState<DocumentData>()
+	const [title, setTitle] = useState('')
 	const [URL, setURL] = useState('')
-	const videoRef = useRef<HTMLVideoElement>(null)
 
 	useEffect(() => {
-		const videoRef = ref(storage, 'movies/vid.mp4')
-		getDownloadURL(videoRef).then(e => {
-			setURL(e)
-		})
-	}, [])
+		const getData = async () => {
+			if (movieName) {
+				const movieRef = doc(db, 'movies', `${movieName}`)
+				const movieDoc = await getDoc(movieRef)
+				setData(movieDoc.data())
+				setTitle(movieDoc.id)
+
+				const storageRef = ref(
+					storage,
+					`movies/${movieName}/${movieName} Movie`
+				)
+				const URL = await getDownloadURL(storageRef)
+				setURL(URL)
+			}
+		}
+
+		if (router.query.name) {
+			setMovieName(router.query.name!.toString().replaceAll('-', ' ').trim())
+			getData()
+		}
+	}, [router.query.name, movieName])
 
 	return (
 		<Fragment>
 			<div className={classes.Movie}>
 				<Player
 					src={URL}
-					title='Coco - Maika ti e gei'
-					description='Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque iusto
-				hic at reprehenderit voluptatum, ipsum laborum alias ipsa voluptatibus
-				et tempora quisquam rem inventore totam nam, ratione minima eum, tempore
-				repellendus laudantium. Atque cum quasi nobis blanditiis, molestiae
-				vitae eius! Reiciendis, eaque labore debitis magnam expedita laudantium
-				nemo consequuntur nostrum!'
-					director='Baba ti'
-					genre={['Action', 'Sex', 'Drama']}
-					released={23 / 23 / 23}
-					stars={['Ivan', 'Georgi', 'Preslava']}
+					title={title}
+					description={data?.description}
+					director={data?.director}
+					genre={data?.genre}
+					released={data?.release}
+					rating={data?.rating}
+					stars={data?.stars}
 				/>
 			</div>
 		</Fragment>

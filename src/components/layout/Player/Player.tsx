@@ -1,3 +1,6 @@
+import Image from 'next/image'
+
+import IMDB from '../../../../public/images/Logos/IMDB.svg'
 import classes from '../../../../styles/layout/Player/Player.module.css'
 
 const Player: React.FC<{
@@ -6,6 +9,7 @@ const Player: React.FC<{
 	description: string
 	director: string
 	released: number
+	rating: number
 	stars: string[]
 	genre: string[]
 }> = props => {
@@ -13,22 +17,21 @@ const Player: React.FC<{
 		<div className={classes.VideoWrapper}>
 			<h1>{props.title}</h1>
 			<video src={props.src} controls></video>
-			<p>{props.description}</p>
+			<div className={classes.Description}>
+				<h1>Overview</h1>
+				<p>{props.description}</p>
+			</div>
 			<div className={classes.Info}>
-				<h2>
-					Stars:{' '}
-					{props.stars.map(star => {
-						return star
-					})}
-				</h2>
-				<h2>Director: {props.director}</h2>
-				<h2>
-					Genre:{' '}
-					{props.genre.map(genre => {
-						return genre
-					})}
-				</h2>
-				<h2>Released: {props.released}</h2>
+				<ul className={classes.InfoPanel}>
+					<li>Director: {props.director}</li>
+					<li>Released: {props.released}</li>
+					<li>Genre: {props.genre?.join(', ')}</li>
+					<li>Stars: {props.stars?.join(', ')}</li>
+				</ul>
+				<div className={classes.InfoRating}>
+					<h1>{props.rating}</h1>
+					<Image src={IMDB} width='100' height='50' />
+				</div>
 			</div>
 		</div>
 	)

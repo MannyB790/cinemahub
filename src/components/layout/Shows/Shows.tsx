@@ -2,7 +2,6 @@ import classes from '../../../../styles/layout/Movies/Movies.module.css'
 import {
 	collection,
 	DocumentData,
-	FieldPath,
 	getDocs,
 	limit,
 	orderBy,
@@ -12,15 +11,15 @@ import {
 import { db, storage } from '../../../../firebase/firebase'
 import React, { useEffect, useState } from 'react'
 import { getDownloadURL, ref } from '@firebase/storage'
-import MovieCard from './MovieCard'
+import ShowCard from './ShowCard'
 
-const Movies: React.FC<{
-	sortBy: string | FieldPath
+const Shows: React.FC<{
+	sortBy: string
 	sortType: OrderByDirection
 	message: string
 	limit: number
 }> = props => {
-	const [movies, setMovies] = useState<
+	const [shows, setShows] = useState<
 		{
 			id: string
 			src: string
@@ -30,24 +29,24 @@ const Movies: React.FC<{
 
 	useEffect(() => {
 		const getMovies = async () => {
-			const movieRef = collection(db, 'movies')
+			const movieRef = collection(db, 'shows')
 			const q = query(
 				movieRef,
 				orderBy(props.sortBy, props.sortType),
 				limit(props.limit)
 			)
 			const data = await getDocs(q)
-			setMovies([])
+			setShows([])
 
 			const URLs = data.docs.map(doc => {
 				return getDownloadURL(
-					ref(storage, `movies/${doc.id}/${doc.id} Thumbnail`)
+					ref(storage, `shows/${doc.id}/${doc.id} Thumbnail`)
 				)
 			})
 
 			const URLlist = await Promise.all(URLs)
 			data.docs.forEach(async (doc, i) => {
-				setMovies(prevState => {
+				setShows(prevState => {
 					if (prevState) {
 						return [
 							...prevState,
@@ -76,13 +75,13 @@ const Movies: React.FC<{
 		<div className={classes.MoviesWrapper}>
 			<h2>{props.message}</h2>
 			<div className={classes.Movies}>
-				{movies.map(movie => {
+				{shows.map(show => {
 					return (
-						<MovieCard
-							href={movie.id}
-							year={movie.data.release}
-							src={movie.src}
-							key={movie.id}
+						<ShowCard
+							href={show.id}
+							year={show.data.release}
+							src={show.src}
+							key={show.id}
 						/>
 					)
 				})}
@@ -91,4 +90,4 @@ const Movies: React.FC<{
 	)
 }
 
-export default Movies
+export default Shows
