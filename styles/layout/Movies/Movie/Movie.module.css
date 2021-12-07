@@ -4,3 +4,8 @@
 	align-items: center;
 	color: white;
 }
+
+.Seasons {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, 20rem);
+}

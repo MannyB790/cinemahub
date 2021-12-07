@@ -6,7 +6,11 @@ import {
 	setDoc,
 	updateDoc,
 } from '@firebase/firestore'
-import { getDownloadURL, ref, uploadBytes } from '@firebase/storage'
+import {
+	ref,
+	uploadBytesResumable,
+	UploadTaskSnapshot,
+} from '@firebase/storage'
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { db, storage } from '../../../firebase/firebase'
 import classes from '../../../styles/CP/ControlPanel.module.css'
@@ -17,7 +21,7 @@ const ControlPanel = () => {
 	const [description, setDescription] = useState('')
 	const [country, setCountry] = useState('')
 	const [director, setDirector] = useState('')
-	const [release, setRelease] = useState<number>()
+	const [release, setRelease] = useState<string>()
 	const [rating, setRating] = useState<number>()
 	const [genre, setGenre] = useState<string[]>([])
 	const [stars, setStars] = useState<string[]>([])
@@ -26,6 +30,11 @@ const ControlPanel = () => {
 
 	const [season, setSeason] = useState<number>()
 	const [episode, setEpisode] = useState('')
+
+	const [movieTask, setMovieTask] =
+		useState<{ current: number; total: number }>()
+	const [thumbnailTask, setThumbnailTask] =
+		useState<{ current: number; total: number }>()
 
 	const genreHandler = (e: ChangeEvent<HTMLInputElement>): void => {
 		const genreArr = e.target.value.split(',')
@@ -42,6 +51,13 @@ const ControlPanel = () => {
 
 		if (season) {
 			const showRef = doc(db, 'shows', `${title.replaceAll('-', ' ')}`)
+			const seasonRef = doc(
+				db,
+				'shows',
+				`${title.trim().replaceAll('-', ' ')}`,
+				'seasons',
+				`${season}`
+			)
 			const showEpisodesRef = doc(
 				db,
 				'shows',
@@ -72,25 +88,53 @@ const ControlPanel = () => {
 				genre,
 				stars,
 				views: 0,
-				uploadTime: serverTimestamp(),
+			})
+
+			await setDoc(seasonRef, {
+				season: season,
 			})
 
 			await setDoc(showEpisodesRef, {
-				episode,
-			}).then(async () => {
-				const docSnapshot = await getDocs(
-					collection(db, `shows/${title.replaceAll('-', ' ')}/${season}`)
-				)
-
-				updateDoc(showRef, {
-					season: docSnapshot.docs.length,
-				})
+				upload: serverTimestamp(),
 			})
 
-			await setDoc(showEpisodesRef, {})
+			await uploadBytesResumable(showStorageRef, file!).on(
+				'state_changed',
+				e => {
+					switch (e.state) {
+						case 'error':
+							alert('Something went wrong!')
 
-			await uploadBytes(showStorageRef, file!)
-			await uploadBytes(showThumbnailStorageRef, thumbnail!)
+						case 'success':
+							alert('Movie Uploaded Succesfully!')
+
+						case 'running':
+							setMovieTask({
+								current: e.bytesTransferred,
+								total: e.totalBytes,
+							})
+					}
+				}
+			)
+			await uploadBytesResumable(showThumbnailStorageRef, thumbnail!).on(
+				'state_changed',
+				e => {
+					switch (e.state) {
+						case 'error':
+							alert('Something went wrong!')
+							break
+						case 'success':
+							alert('Thumbnail Uploaded Succesfully!')
+							break
+						case 'running':
+							setThumbnailTask({
+								current: e.bytesTransferred,
+								total: e.totalBytes,
+							})
+							break
+					}
+				}
+			)
 		} else {
 			const movieRef = doc(db, 'movies', `${title.trim().replaceAll('-', ' ')}`)
 			const movieStorageRef = ref(
@@ -109,6 +153,7 @@ const ControlPanel = () => {
 			)
 
 			await setDoc(movieRef, {
+				title,
 				country,
 				description,
 				director,
@@ -120,8 +165,43 @@ const ControlPanel = () => {
 				uploadTime: serverTimestamp(),
 			})
 
-			await uploadBytes(movieStorageRef, file!)
-			await uploadBytes(movieThumbnailStorageRef, thumbnail!)
+			await uploadBytesResumable(movieStorageRef, file!).on(
+				'state_changed',
+				e => {
+					switch (e.state) {
+						case 'error':
+							alert('Something went wrong!')
+
+						case 'success':
+							alert('Movie Uploaded Succesfully!')
+
+						case 'running':
+							setMovieTask({
+								current: e.bytesTransferred,
+								total: e.totalBytes,
+							})
+					}
+				}
+			)
+			await uploadBytesResumable(movieThumbnailStorageRef, thumbnail!).on(
+				'state_changed',
+				e => {
+					switch (e.state) {
+						case 'error':
+							alert('Something went wrong!')
+							break
+						case 'success':
+							alert('Thumbnail Uploaded Succesfully!')
+							break
+						case 'running':
+							setThumbnailTask({
+								current: e.bytesTransferred,
+								total: e.totalBytes,
+							})
+							break
+					}
+				}
+			)
 		}
 	}
 
@@ -138,7 +218,7 @@ const ControlPanel = () => {
 			<label>Director</label>
 			<input type='text' onChange={e => setDirector(e.target.value)} />
 			<label>Release Date</label>
-			<input type='text' onChange={e => setRelease(parseInt(e.target.value))} />
+			<input type='text' onChange={e => setRelease(e.target.value)} />
 			<label>Rating</label>
 			<input
 				type='text'
@@ -164,6 +244,29 @@ const ControlPanel = () => {
 			<button type='submit' className={CPForms.Upload}>
 				Upload
 			</button>
+			{thumbnailTask && (
+				<>
+					<label htmlFor='thumbnailTask'>Thumbnail Uploading</label>
+					<progress
+						id='thumbnailTask'
+						value={thumbnailTask?.current}
+						max={thumbnailTask?.total}
+					></progress>
+				</>
+			)}
+
+			{movieTask && (
+				<>
+					<label htmlFor='movieTask'>Content Uploading...</label>
+					<progress
+						id='movieTask'
+						value={movieTask?.current}
+						max={movieTask?.total}
+					>
+						{movieTask.current}/{movieTask.total}
+					</progress>
+				</>
+			)}
 		</form>
 	)
 }

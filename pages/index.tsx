@@ -11,7 +11,7 @@ const Home = () => {
 				message='Most Popular Movies'
 				sortBy='views'
 				sortType='desc'
-				limit={20}
+				limit={50}
 			/>
 			<Shows
 				message='Most Popular Shows'

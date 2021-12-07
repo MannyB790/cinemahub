@@ -1,4 +1,10 @@
-import { collection, getDocs, QueryDocumentSnapshot } from '@firebase/firestore'
+import {
+	collection,
+	getDocs,
+	orderBy,
+	query,
+	QueryDocumentSnapshot,
+} from '@firebase/firestore'
 import { useEffect, useState } from 'react'
 import { db } from '../../../../firebase/firebase'
 import classes from '../../../../styles/layout/Show/Season.module.css'
@@ -13,12 +19,16 @@ const Season: React.FC<{
 	useEffect(() => {
 		if (props.season) {
 			if (props.showName) {
-				const getEpisodeds = async () => {
+				const getEpisodes = async () => {
 					const episodesCollection = collection(
 						db,
 						`shows/${props.showName}/seasons/${props.season}/episodes`
 					)
-					const episodesCollectionDocs = await getDocs(episodesCollection)
+					const episodesQuery = query(
+						episodesCollection,
+						orderBy('upload', 'asc')
+					)
+					const episodesCollectionDocs = await getDocs(episodesQuery)
 					setEpisodes([])
 					episodesCollectionDocs.docs.forEach(doc => {
 						setEpisodes(prevState => {
@@ -30,7 +40,7 @@ const Season: React.FC<{
 						})
 					})
 				}
-				getEpisodeds()
+				getEpisodes()
 			}
 		}
 	}, [props.season, props.showName])
@@ -38,7 +48,7 @@ const Season: React.FC<{
 	return (
 		<div className={classes.Season}>
 			<h1>{props.season}</h1>
-			<ul>
+			<ol>
 				{episodes?.map(ep => {
 					return (
 						<li>
@@ -48,7 +58,7 @@ const Season: React.FC<{
 						</li>
 					)
 				})}
-			</ul>
+			</ol>
 		</div>
 	)
 }

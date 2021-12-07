@@ -1,4 +1,8 @@
-.CP {
+.CP progress {
+	min-width: 20rem;
+	width: 80%;
+	max-width: 35rem;
+	min-height: 3rem;
 }
 
 .CP textarea {

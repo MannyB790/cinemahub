@@ -1,2 +1,13 @@
 .Season {
+	/* display: flex; */
+	/* justify-content: space-between; */
+}
+
+.Season ol {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, 120px);
+}
+
+.Season a {
+	color: var(--text-secondary);
 }

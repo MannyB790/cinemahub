@@ -9,7 +9,7 @@ import {
 	DocumentData,
 	getDoc,
 	getDocs,
-	QuerySnapshot,
+	QueryDocumentSnapshot,
 } from '@firebase/firestore'
 import { db, storage } from '../../firebase/firebase'
 import { getDownloadURL, ref } from '@firebase/storage'
@@ -20,9 +20,8 @@ const Name = () => {
 
 	const [showName, setShowName] = useState('')
 	const [data, setData] = useState<DocumentData>()
-	const [title, setTitle] = useState('')
 	const [URL, setURL] = useState('')
-	const [seasons, setSeasons] = useState<QuerySnapshot>()
+	const [seasons, setSeasons] = useState<string[]>([])
 
 	useEffect(() => {
 		const getData = async () => {
@@ -33,12 +32,9 @@ const Name = () => {
 					db,
 					`shows/${showName}/seasons/1/episodes`
 				)
-				const seasonsCollection = collection(db, `shows/${showName}/seasons`)
-				const seasonsCollectionDocs = await getDocs(seasonsCollection)
-				setSeasons(seasonsCollectionDocs)
+
 				const showEpisodeDoc = await getDocs(showEpisodeRef)
 				setData(showDoc.data())
-				setTitle(showDoc.id)
 
 				const storageRef = ref(
 					storage,
@@ -46,6 +42,20 @@ const Name = () => {
 				)
 				const URL = await getDownloadURL(storageRef)
 				setURL(URL)
+
+				const seasonsCollection = collection(db, `shows/${showName}/seasons`)
+				const seasonsCollectionDocs = await getDocs(seasonsCollection)
+				setSeasons([])
+				seasonsCollectionDocs.docs.forEach(doc => {
+					console.log(doc.id)
+					setSeasons((prevState): string[] => {
+						if (prevState != []) {
+							return [...prevState, doc.id]
+						} else {
+							return [doc.id]
+						}
+					})
+				})
 			}
 		}
 
@@ -66,7 +76,7 @@ const Name = () => {
 			<div className={classes.Movie}>
 				<Player
 					src={URL}
-					title={title}
+					title={showName}
 					description={data?.description}
 					director={data?.director}
 					genre={data?.genre}
@@ -74,16 +84,19 @@ const Name = () => {
 					rating={data?.rating}
 					stars={data?.stars}
 				/>
-				<h1>Seasons</h1>
-				{seasons?.docs.map(doc => {
-					return (
-						<Season
-							season={doc.id}
-							showName={showName}
-							updateEpisode={updateEpisode}
-						/>
-					)
-				})}
+				<div className={classes.Seasons}>
+					<h1>Seasons</h1>
+					{seasons?.map(doc => {
+						return (
+							<Season
+								key={doc}
+								season={doc}
+								showName={showName}
+								updateEpisode={updateEpisode}
+							/>
+						)
+					})}
+				</div>
 			</div>
 		</Fragment>
 	)
