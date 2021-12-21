@@ -14,7 +14,7 @@ const MovieCard: React.FC<{
 	return (
 		<div className={classes.MovieCard}>
 			<p>{props.year}</p>
-			<Image src={props.src ? props.src : tmb} width='200px' height='300px' />
+			<Image src={props.src ? props.src : tmb} width='200px' height='300px' alt='thumbnail' />
 			<Link href={`movies/${props.href.replaceAll(' ', '-')}`}>
 				{props.href}
 			</Link>

@@ -51,7 +51,7 @@ const Season: React.FC<{
 			<ol>
 				{episodes?.map(ep => {
 					return (
-						<li>
+						<li key={ep}>
 							<a href='#' onClick={() => props.updateEpisode(ep, props.season)}>
 								{ep}
 							</a>

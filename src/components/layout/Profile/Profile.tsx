@@ -31,7 +31,7 @@ const Profile = () => {
 			}
 		}
 		getURL()
-	}, [user?.photoURL])
+	}, [user?.photoURL, user?.uid])
 
 	const pfpHandler = () => {
 		inputRef.current?.click()
@@ -74,6 +74,7 @@ const Profile = () => {
 					width={100}
 					height={100}
 					onClick={pfpHandler}
+					alt='pfp'
 				/>
 
 				{user?.photoURL && (

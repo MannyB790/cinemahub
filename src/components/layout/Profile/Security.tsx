@@ -9,7 +9,7 @@ import { useState } from 'react'
 import { auth } from '../../../../firebase/firebase'
 import classes from '../../../../styles/layout/Profile/Profile.module.css'
 
-const Security = () => {
+const SecurityContent = () => {
 	const [currentPassword, setCurrentPassword] = useState('')
 	const [newPassowrd, setNewPassowrd] = useState('')
 	const [reNewPassowrd, setReNewPassowrd] = useState('')
@@ -75,4 +75,4 @@ const Security = () => {
 	)
 }
 
-export default Security
+export default SecurityContent

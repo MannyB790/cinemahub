@@ -22,7 +22,7 @@ const DesktopNav = () => {
 			}
 		}
 		getURL()
-	}, [user?.photoURL])
+	}, [user?.photoURL, user?.uid])
 
 	return (
 		<ul className={classes.DesktopNav}>
@@ -37,8 +37,8 @@ const DesktopNav = () => {
 			</li>
 			{user ? (
 				<li>
-					<Link href='/profile'>
-						<Image src={URL ? URL : solid} width={50} height={50} priority />
+					<Link href='/profile' passHref >
+						<Image src={URL ? URL : solid} width={50} height={50} priority alt='pfp' />
 					</Link>
 				</li>
 			) : (

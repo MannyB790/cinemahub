@@ -6,7 +6,7 @@ import Signup from '../../src/components/layout/Auth/Signup'
 
 import classes from '../../styles/layout/Auth/Auth.module.css'
 
-const index = () => {
+const Index = () => {
 	const router = useRouter()
 	const [user] = useAuthState(auth)
 
@@ -14,7 +14,7 @@ const index = () => {
 		if (user) {
 			router.push('/')
 		}
-	}, [])
+	}, [router, user])
 
 	return (
 		<Fragment>
@@ -25,4 +25,4 @@ const index = () => {
 	)
 }
 
-export default index
+export default Index

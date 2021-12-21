@@ -30,7 +30,7 @@ const Player: React.FC<{
 				</ul>
 				<div className={classes.InfoRating}>
 					<h1>{props.rating}</h1>
-					<Image src={IMDB} width='100' height='50' />
+					<Image src={IMDB} width='100' height='50' alt='player' />
 				</div>
 			</div>
 		</div>

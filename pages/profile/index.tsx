@@ -7,7 +7,7 @@ import Profile from '../../src/components/layout/Profile/Profile'
 
 import classes from '../../styles/layout/Profile/Profile.module.css'
 
-const index = () => {
+const Index = () => {
 	const router = useRouter()
 	const [user] = useAuthState(auth)
 
@@ -15,7 +15,7 @@ const index = () => {
 		if (!user) {
 			router.replace('/')
 		}
-	}, [])
+	}, [router, user])
 
 	return (
 		<Fragment>
@@ -27,4 +27,4 @@ const index = () => {
 	)
 }
 
-export default index
+export default Index

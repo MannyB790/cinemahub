@@ -70,7 +70,7 @@ const Movies: React.FC<{
 			})
 		}
 		getMovies()
-	}, [])
+	}, [props.limit, props.sortBy, props.sortType])
 
 	return (
 		<div className={classes.MoviesWrapper}>

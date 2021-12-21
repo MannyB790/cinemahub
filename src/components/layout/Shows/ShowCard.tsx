@@ -13,7 +13,7 @@ const ShowCard: React.FC<{
 	return (
 		<div className={classes.MovieCard}>
 			<p>{props.year}</p>
-			<Image src={props.src ? props.src : tmb} width='200px' height='300px' />
+			<Image src={props.src ? props.src : tmb} width='200px' height='300px' alt=''/>
 			<Link href={`shows/${props.href.replaceAll(' ', '-')}`}>
 				{props.href}
 			</Link>

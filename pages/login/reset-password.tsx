@@ -6,7 +6,7 @@ import Link from 'next/link'
 
 import classes from '../../styles/layout/Auth/Auth.module.css'
 
-const resetPassword = () => {
+const ResetPassword = () => {
 	const router = useRouter()
 
 	const [email, setEmail] = useState('')
@@ -41,4 +41,4 @@ const resetPassword = () => {
 	)
 }
 
-export default resetPassword
+export default ResetPassword

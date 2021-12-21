@@ -3,11 +3,11 @@ import { useEffect } from 'react'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { auth } from '../../firebase/firebase'
 import Navigation from '../../src/components/layout/Profile/Navigation'
-import Security from '../../src/components/layout/Profile/Security'
+import SecurityContent from '../../src/components/layout/Profile/Security'
 
 import classes from '../../styles/layout/Profile/Profile.module.css'
 
-const security = () => {
+const Security = () => {
 	const router = useRouter()
 	const [user] = useAuthState(auth)
 
@@ -15,14 +15,14 @@ const security = () => {
 		if (!user) {
 			router.replace('/')
 		}
-	}, [])
+	}, [router, user])
 
 	return (
 		<div className={classes.Profile}>
 			<Navigation />
-			<Security />
+			<SecurityContent />
 		</div>
 	)
 }
 
-export default security
+export default Security
