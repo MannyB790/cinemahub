@@ -1,5 +1,5 @@
 import { collection, getDocs, OrderByDirection } from '@firebase/firestore'
-import { useEffect, useState } from 'react'
+import React, { FormEventHandler, useEffect, useState } from 'react'
 import { db } from '../../../../firebase/firebase'
 import classes from '../../../../styles/layout/navigation.module.css'
 import Select from '../../UI/Select/Select'
@@ -9,8 +9,9 @@ const SearchBar: React.FC<{
 	setSortType?: (e: OrderByDirection) => void
 	setGenre?: (e: string) => void
 	setYear?: (e: string) => void
-}> = () => {
-	const [search, setSearch] = useState<string | null>(null)
+	setTitle?: (e: string) => void
+}> = props => {
+	const [search, setSearch] = useState<string>()
 	const [years, setYears] = useState<string[]>(['All'])
 	const [genres, setGenres] = useState<string[]>(['All'])
 
@@ -46,8 +47,14 @@ const SearchBar: React.FC<{
 		getData()
 	}, [])
 
+	const searchHandler = (e: React.FormEvent) => {
+		e.preventDefault()
+
+		props.setTitle!(search!)
+	}
+
 	return (
-		<form className={classes.SearchBar}>
+		<form onSubmit={searchHandler} className={classes.SearchBar}>
 			<input
 				type='text'
 				placeholder='Search Movies and Shows'

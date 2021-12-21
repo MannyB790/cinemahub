@@ -8,6 +8,7 @@ import {
 	orderBy,
 	OrderByDirection,
 	query,
+	where
 } from '@firebase/firestore'
 import { db, storage } from '../../../../firebase/firebase'
 import React, { useEffect, useState } from 'react'
@@ -19,6 +20,7 @@ const Movies: React.FC<{
 	sortType: OrderByDirection
 	message: string
 	limit: number
+	search?: string
 }> = props => {
 	const [movies, setMovies] = useState<
 		{
@@ -31,12 +33,24 @@ const Movies: React.FC<{
 	useEffect(() => {
 		const getMovies = async () => {
 			const movieRef = collection(db, 'movies')
-			const q = query(
-				movieRef,
-				orderBy(props.sortBy, props.sortType),
-				limit(props.limit)
-			)
-			const data = await getDocs(q)
+			let q, data
+
+			if (props.search) {
+				q = query(
+					movieRef,
+					where("title", "==", props.search),
+					orderBy(props.sortBy, props.sortType),
+					limit(props.limit),
+				)
+				data = await getDocs(q)
+			} else {
+				q = query(
+					movieRef,
+					orderBy(props.sortBy, props.sortType),
+					limit(props.limit)
+				)
+				data = await getDocs(q)
+			}
 			setMovies([])
 
 			const URLs = data.docs.map(doc => {
@@ -70,7 +84,7 @@ const Movies: React.FC<{
 			})
 		}
 		getMovies()
-	}, [props.limit, props.sortBy, props.sortType])
+	}, [props.limit, props.sortBy, props.sortType, props.search])
 
 	return (
 		<div className={classes.MoviesWrapper}>
